@@ -1,18 +1,34 @@
 # GitHub 学习路线
 
-这份练习把 Git 的版本控制与 GitHub 的远程协作放在真实的 Verilog 迭代中使用。命令都在仓库根目录执行。
+这份练习把 Git 的版本控制与 GitHub 的远程协作放在真实的 Verilog 迭代中使用。项目已经连接到：
 
-## 0. 先安装并配置 Git
+```text
+https://github.com/njueewang/verilog64-multiplier-lab
+```
 
-安装 Git for Windows 后重新打开终端，确认：
+下面的命令都在 **Git Bash** 的仓库根目录执行。
 
-```powershell
+## 0. 确认 Git 环境
+
+从开始菜单打开 Git Bash：
+
+```bash
+cd /e/Work/AI_Agents
 git --version
-git config --global user.name "你的名字"
-git config --global user.email "你的 GitHub 邮箱"
+gh auth status
+git config --local --get user.name
+git config --local --get user.email
 ```
 
 `user.name` 会写进每次 commit；`user.email` 是提交者身份，不会自动公开，但会成为提交元数据。
+
+本项目使用 GitHub 免公开邮箱：
+
+```text
+96346145+njueewang@users.noreply.github.com
+```
+
+本机网络阻断了普通 Git HTTPS 端点，所以 `origin` 使用 `ssh.github.com` 的 443 端口，并通过仅限本仓库的 Deploy Key 认证。不要把这个仓库配置直接复制给其他项目；每个仓库可以单独决定访问权限。
 
 ## 1. 仓库、工作区、暂存区、提交
 
@@ -23,7 +39,7 @@ git config --global user.email "你的 GitHub 邮箱"
 
 常用检查命令：
 
-```powershell
+```bash
 git status
 git diff
 git log --oneline --decorate --graph --all
@@ -31,27 +47,24 @@ git log --oneline --decorate --graph --all
 
 `git status` 只展示当前状态，不会上传文件。看完后可以用 `git diff` 检查尚未暂存的具体修改。
 
-## 2. 创建第一次提交
+## 2. 阅读第一次提交
 
-确认远程仓库已经在 GitHub 上创建。如果仓库是空的，首次提交可以这样完成：
+第一次提交已经完成，不需要重新初始化。先观察仓库状态和历史：
 
-```powershell
-git init
-git add .
+```bash
 git status
-git commit -m "feat(v1): add baseline 64-bit shift-add multiplier"
-git branch -M main
-git remote add origin https://github.com/njueewang/REPOSITORY_NAME.git
-git push -u origin main
-git tag -a v1.0-baseline -m "V1: baseline 64-bit shift-add multiplier"
-git push origin v1.0-baseline
+git log --oneline --decorate --graph --all
+git show --stat v1.0-baseline
+git remote -v
 ```
+
+`main` 已跟踪 `origin/main`，标签 `v1.0-baseline` 也已推送到 GitHub。
 
 提交前必须检查 `git status` 和 `git diff --staged`。不要把 Vivado 的构建缓存、波形或包含本机路径的工程生成文件提交进去。
 
 ## 3. 新增 V2 的完整 GitHub 流程
 
-```powershell
+```bash
 git switch main
 git pull --ff-only
 git switch -c feature/v2-pipeline
@@ -59,7 +72,7 @@ git switch -c feature/v2-pipeline
 
 修改设计并运行仿真后：
 
-```powershell
+```bash
 git status
 git diff
 git add rtl tb docs scripts README.md
@@ -76,7 +89,7 @@ git push -u origin feature/v2-pipeline
 4. 合并 Pull Request。
 5. 在本地更新并打标签：
 
-```powershell
+```bash
 git switch main
 git pull --ff-only
 git tag -a v2.0-pipeline -m "V2: two-stage pipelined multiplier"
@@ -97,13 +110,13 @@ git push origin v2.0-pipeline
 
 查看文件在上一提交中的内容，不会修改工作区：
 
-```powershell
+```bash
 git show HEAD:rtl/multiplier64.v
 ```
 
 舍弃某一个文件尚未提交的修改前，先查看差异：
 
-```powershell
+```bash
 git diff -- rtl/multiplier64.v
 git restore rtl/multiplier64.v
 ```

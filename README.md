@@ -4,6 +4,8 @@
 
 当前版本：**V1 基线乘法器**
 
+GitHub 仓库：<https://github.com/njueewang/verilog64-multiplier-lab>
+
 ## V1 设计
 
 - 输入：两个无符号 64 位数 `a`、`b`
@@ -56,6 +58,18 @@ vivado\multiplier64_v1\multiplier64_v1.xpr
 
 测试平台会检查零、一、最大值、大数相乘、不同位宽数值以及 200 组随机输入。终端中出现 `MULTIPLIER64 V1 TEST PASSED` 才表示全部通过。
 
+## 打开 Git Bash
+
+从开始菜单打开 **Git Bash**，然后进入本仓库：
+
+```bash
+cd /e/Work/AI_Agents
+git status
+gh auth status
+```
+
+本机已经安装 Git 2.56 和 GitHub CLI 2.103。当前 `origin` 使用 GitHub 的 SSH 443 通道，因为这台电脑的网络会阻断普通 Git HTTPS 端点。仓库级 Deploy Key 只授权当前项目，不授权其他 GitHub 仓库。
+
 ## Vivado 工程说明
 
 工程器件暂时选择常见的 Artix-7 `xc7a35tcsg324-1`。这不会影响行为仿真；如果要上板，应在 Vivado 中把器件改为你实际开发板上的型号，并补充引脚约束。
@@ -77,3 +91,5 @@ vivado\multiplier64_v1\multiplier64_v1.xpr
 详细说明见 [docs/GITHUB_LEARNING_PATH.md](docs/GITHUB_LEARNING_PATH.md)，版本路线见 [docs/VERSION_ROADMAP.md](docs/VERSION_ROADMAP.md)。
 
 V1 已记录的功能仿真和综合摘要见 [docs/V1_RESULTS.md](docs/V1_RESULTS.md)。
+
+V1 的代码、测试、工程构建脚本和文档已经推送到 GitHub，并带有 `v1.0-baseline` 标签。
