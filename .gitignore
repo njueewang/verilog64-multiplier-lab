@@ -1,0 +1,27 @@
+# Vivado generated projects and build products
+vivado/**/.Xil/
+vivado/**/*.cache/
+vivado/**/*.gen/
+vivado/**/*.hw/
+vivado/**/*.ip_user_files/
+vivado/**/*.runs/
+vivado/**/*.sim/
+vivado/**/*.srcs/
+vivado/**/*.backup.*
+vivado/**/*.jou
+vivado/**/*.log
+vivado/**/*.str
+vivado/**/*.wdb
+vivado/**/*.wcfg
+vivado/**/*.xpr
+vivado/**/*.xpr.orig
+vivado/**/reports/
+dfx_runtime.txt
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*~
